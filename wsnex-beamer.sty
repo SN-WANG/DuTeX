@@ -1,0 +1,264 @@
+% =============================================================================
+% WsNeX Beamer Macro Package
+% Maintainer: Shengning Wang
+% Description: Foundation for academic and technical presentation slides.
+% =============================================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{wsnex-beamer}[WsNeX Beamer UI Library]
+
+\RequirePackage{wsnex-base}
+
+% =============================================================================
+% 1. BASE THEME CONFIGURATION
+% =============================================================================
+\usetheme{Berlin}
+\usecolortheme{seahorse}
+
+\setbeamercolor{structure}{fg=wsnPrimary, bg=white}
+\setbeamercolor{frametitle}{bg=white}
+
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+\usefonttheme[onlymath]{serif}
+\setsansfont{arial.ttf}
+\setCJKsansfont{msyh.ttc}
+
+\setstretch{1.5}
+
+% Support for printing multiple slides per page.
+\RequirePackage{pgfpages}
+
+% Usage for Handouts:
+% 1. Add [handout] option to \documentclass.
+% 2. Uncomment the line below to arrange 4 slides on one A4 sheet.
+% \pgfpagesuselayout{4 on 1}[a4paper, border shrink=5mm]
+
+% =============================================================================
+% 2. TITLE PAGE ARCHITECTURE
+% =============================================================================
+% Purpose: Renders a complex geometric cover with dynamic author-box calculation.
+% Features: Dual-path fading, diagonal block joins, and automated height adjustment.
+
+\newsavebox{\wsnAuthorBox}
+\newdimen\authorheight
+\newdimen\titlelow
+\newdimen\titlehigh
+\newdimen\titletexthigh
+\newdimen\authorhigh
+\newdimen\authortexthigh
+\newdimen\authorwidthmin
+\newdimen\titletoauthor
+\newdimen\titletoauthorx
+
+\defbeamertemplate*{title page}{wsnextheme}{%
+    % Step 1: Calculate Author Box dynamic height
+    \sbox{\wsnAuthorBox}{\parbox{.72\paperwidth}{%
+        \setlength{\baselineskip}{10pt}%
+        {\usebeamerfont{author}\insertauthor\par}%
+        {\vskip6pt}%
+        {\usebeamerfont{institute}\insertinstitute}%
+    }}
+    \settototalheight{\authorheight}{\usebox{\wsnAuthorBox}}
+    \authorheight=\dimexpr\authorheight + 0.036\paperwidth\relax
+
+    % Step 2: Define Geometric Anchors (Gold Standard Logic)
+    \titlelow=0.4\paperheight
+    \titlehigh=0.65\paperheight
+    \titletexthigh=\dimexpr\titlehigh - 0.025\paperheight\relax
+    \authorhigh=0.45\paperheight
+    \authortexthigh=\dimexpr\authorhigh - 0.025\paperheight\relax
+    \authorwidthmin=0.75\paperwidth
+    \titletoauthor=\dimexpr\authorhigh - \titlelow + 0.2pt\relax
+    \titletoauthorx=\dimexpr\authorwidthmin+0.5\titletoauthor+0.8mm\relax
+
+    \begin{beamercolorbox}[wd=\paperwidth,ht=\paperheight]{}%
+        \begin{tikzpicture}[overlay, yshift=-13.3pt]%
+            % Fading Definitions
+            \tikzfading[name=title fade, left color=transparent!0, right color=transparent!100]
+            \tikzfading[name=author fade, left color=transparent!0, right color=transparent!100]
+
+            % Logo (North West)
+            \node[anchor=north west, xshift=2mm, yshift=-5mm] at (current page.north west) {
+                \includegraphics[height=.16\paperheight]{fig/DUT.pdf}
+            };
+
+            % Drawing Title Block (Upper Diagonal)
+            \fill[wsnPrimary, path fading=title fade] (0, \titlehigh)
+                -- (\paperwidth, \titlehigh)
+                -- (\paperwidth, \titlelow)
+                -- (\titletoauthorx, \titlelow)
+                -- (\authorwidthmin+0.8mm, \authorhigh+0.8mm)
+                -- (0, \authorhigh+0.8mm)
+                -- cycle;
+
+            % Inserting Title Text
+            \node[anchor=north west, text width=.9\paperwidth] at (16pt, \titletexthigh) {
+                {\usebeamerfont{title}\usebeamercolor[white]{title}\inserttitle\\}
+                {\usebeamerfont{subtitle}\usebeamercolor[white]{subtitle}\insertsubtitle\\}
+            };
+
+            % Drawing Author Block (Lower Diagonal)
+            \fill[wsnPrimary!10!white, path fading=author fade] (0, \authorhigh)
+                -- (\authorwidthmin, \authorhigh)
+                -- ++(0.5\authorheight, -\authorheight)
+                -- (0, \dimexpr\authorhigh - \authorheight\relax)
+                -- cycle;
+
+            % Inserting Author/Institute
+            \node[anchor=north west, inner sep=0pt, outer sep=0pt]%
+                at (16pt, \authortexthigh) {\usebox{\wsnAuthorBox}};
+
+            % Date (South West)
+            \node[anchor=south west, xshift=2mm, yshift=2mm] at (current page.south west) {
+                \usebeamerfont{date}\insertdate
+            };
+        \end{tikzpicture}%
+    \end{beamercolorbox}%
+}
+
+% =============================================================================
+% 3. FRAME HEADER & NAVIGATION (DEFAULT DISABLED)
+% =============================================================================
+% Purpose: Implements horizontal section/subsection navigation in the headline.
+% Features: Hidden on the first page (TITLE PAGE) AND the last page (END COVER).
+
+\defbeamertemplate{headline}{wsnextheme}{
+    \ifnum \the\value{page}>1
+        \ifnum\insertframenumber<\inserttotalframenumber
+            \leavevmode
+            \hbox{%
+            \vbox{%
+                \begin{beamercolorbox}[wd=\paperwidth,ht=5.0ex,dp=1.325ex]{section in head/foot}%
+                    \usebeamerfont{subsection in head/foot}\insertsectionnavigationhorizontal{\paperwidth}{}{}
+                \end{beamercolorbox}
+                \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{subsection in head/foot}%
+                    \usebeamerfont{subsection in head/foot} \insertsubsectionnavigationhorizontal{\paperwidth}{}{}%
+                \end{beamercolorbox}}}
+        \fi
+    \fi
+}
+% \setbeamertemplate{headline}[wsnextheme]
+\setbeamertemplate{headline}{} % Default to empty
+
+% =============================================================================
+% 4. FRAME TITLE UI (GEOMETRIC)
+% =============================================================================
+
+\newdimen\secline
+\newdimen\seclinelow
+\newdimen\seclineheight
+\newdimen\seclinehigh
+\newdimen\numbox
+\newdimen\secheight
+
+\setbeamertemplate{frametitle}{
+    \secline=.64\paperwidth
+    \seclinelow=-25pt
+    \seclineheight=2.8pt
+    \seclinehigh=\dimexpr\seclinelow+\seclineheight
+    \numbox=\dimexpr\the\paperwidth - \secline - 110pt\relax
+    \secheight=-\seclinelow
+
+    \tikzfading[name=secline fade, left color=transparent!0, right color=transparent!50]
+    \tikzfading[name=numbox fade, left color=transparent!0, right color=transparent!40]
+
+    \nointerlineskip
+    \hspace*{-11mm}
+    \begin{tikzpicture}
+        \coordinate (LineNorthWest) at (0, \seclinehigh);
+        \coordinate (LineSouthWest) at (0, \seclinelow);
+        \coordinate (LineSouthEast) at (\secline, \seclinelow);
+        \coordinate (NumboxNorthEast) at (\the\paperwidth, 0);
+        \coordinate (NumboxSouthEast) at (\the\paperwidth, \seclinelow);
+        \coordinate (NumboxSouthWest) at ([xshift=-\numbox]NumboxSouthEast);
+        \coordinate (NumboxNorthWest) at ([xshift=-0.5\secheight, yshift=\secheight]NumboxSouthWest);
+        \coordinate (AdornDarkNorthWest) at ([xshift=-0.3\secheight]NumboxNorthWest);
+        \coordinate (AdornDarkSouthEast) at ([xshift=0.3\secheight, yshift=-0.6\secheight]NumboxNorthWest);
+        \coordinate (AdornLightNorthWest) at ([xshift=-0.3\secheight]AdornDarkSouthEast);
+        \coordinate (AdornLightSouthEast) at ([xshift=0.15\secheight, yshift=-0.3\secheight]AdornDarkSouthEast);
+
+        % Geometric Accents
+        \fill[wsnPrimary, path fading=numbox fade] (NumboxNorthEast) -- (NumboxSouthEast)
+            -- (NumboxSouthWest) -- (NumboxNorthWest) -- cycle;
+        \fill[wsnInter] (AdornDarkNorthWest) -- (NumboxNorthWest)
+            -- (AdornDarkSouthEast) -- ++ (-0.3\secheight, 0) -- cycle;
+        \fill[wsnAux] (AdornLightNorthWest) -- (AdornDarkSouthEast)
+            -- (AdornLightSouthEast) -- ++ (-0.3\secheight, 0) -- cycle;
+        \fill[wsnPrimary, path fading=secline fade] (LineNorthWest) -- (LineSouthWest)
+            -- (LineSouthEast) -- ++ (-0.5\seclineheight, \seclineheight) -- cycle;
+
+        % Text Insertion
+        \node[anchor=north west, inner sep=0pt, outer sep=0pt]%
+            at (5mm, -2.1mm) {\usebeamerfont{frametitle}\insertframetitle};
+        \node[anchor=north west, inner sep=0pt, outer sep=0pt]%
+            at (\paperwidth - 16.5mm, -2.1mm) %
+            {\Large\usebeamercolor[bg]{frametitle}\insertframenumber~/~\inserttotalframenumber};
+    \end{tikzpicture}
+}
+
+% =============================================================================
+% 5. PROGRESS NAVIGATION (SECTION HOOKS)
+% =============================================================================
+% Purpose: Automates Table of Contents display.
+
+\AtBeginSection{
+    {\usebackgroundtemplate{
+        \tikz[overlay, remember picture]\node[opacity=0.2] at (current page.center){
+            \includegraphics[width=\paperwidth]{fig/BG.jpg}
+            };
+        }
+        \begin{frame}{\inserttitle}
+            \tableofcontents[currentsection, hideallsubsections]
+        \end{frame}
+    }
+}
+
+% \AtBeginSubsection{
+%     {\usebackgroundtemplate{
+%     \tikz[overlay, remember picture]\node[opacity=0.2] at (current page.center){
+%         \includegraphics[width=\paperwidth]{fig/BG.jpg}
+%         };
+%     }
+%     \begin{frame}{\inserttitle}
+%         \tableofcontents[sectionstyle=hide, subsectionstyle=show/shaded/hide]
+%     \end{frame}
+%     }
+% }
+
+% =============================================================================
+% 6. FOOTER & UTILITY UI
+% =============================================================================
+
+\defbeamertemplate{footline}{wsnextheme}{
+    \ifnum \the\value{page}>1
+    \ifnum\insertframenumber<\inserttotalframenumber
+    \leavevmode\hbox{%
+        \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}
+            \usebeamerfont{author in head/foot}\insertshortauthor
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}
+            \usebeamerfont{title in head/foot}\insertshorttitle
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}
+            \insertframenumber{} / \inserttotalframenumber
+    \end{beamercolorbox}}\fi\fi
+}
+% \setbeamertemplate{footline}[wsnextheme]
+\setbeamertemplate{footline}{} % Default to empty
+
+% Usage: \wsnfooter{Text content}
+\RequirePackage[absolute,overlay]{textpos}
+\tikzfading[name=footer fade, left color=transparent!0, right color=transparent!40]
+\newcommand{\wsnfooter}[1]{%
+    \begin{textblock*}{\paperwidth}(0cm, \paperheight-1cm)
+        \begin{tikzpicture}
+            \fill[wsnPrimary, path fading=footer fade] (0, 0) rectangle (\paperwidth, 1cm);
+            \node[text width=0.9\paperwidth, align=center, text=white, alerted text/.style={color=white}] 
+                 at (0.5\paperwidth, 0.5cm) {#1};
+        \end{tikzpicture}
+    \end{textblock*}%
+}
+
+\endinput

@@ -1,0 +1,105 @@
+% =============================================================================
+% WsNeX Base Macro Package
+% Maintainer: Shengning Wang
+% Description: Foundation for academic manuscripts and technical documentation.
+% =============================================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{wsnex-base}[WsNeX Core Engineering Library]
+
+% =============================================================================
+% 1. TYPOGRAPHY, LANGUAGES & PAGE LOGIC
+% =============================================================================
+% Core engine for font management and document-level layout control.
+\RequirePackage{fontspec}
+\RequirePackage{indentfirst}   % Automatic indentation of the first paragraph
+\RequirePackage{setspace}      % Controls line spacing via \setstretch{1.5}
+\RequirePackage{lettrine}      % Dropped capitals: \lettrine{T}{he}
+\RequirePackage{changepage}    % Local margin adjustments via \begin{adjustwidth}
+\RequirePackage{multicol}      % Multi-column layout: \begin{multicols}{2}
+\RequirePackage{geometry}      % Standard layout control: \geometry{...}
+
+% Default Font Mappings
+\setmainfont{Times New Roman}
+
+% =============================================================================
+% 2. MATHEMATICAL ARCHITECTURE
+% =============================================================================
+% Comprehensive math support with improved symbol handling and bold vectors.
+\RequirePackage{amsmath, amsthm, amssymb} % Standard AMS math suite
+\RequirePackage{bm}     % Use \bm{...} for bold italicized math symbols
+\RequirePackage{pifont} % Access to special symbols/dingbats
+
+\numberwithin{equation}{section} % Resets equation counter at every section
+
+% =============================================================================
+% 3. GRAPHICS & VISUALIZATION
+% =============================================================================
+% Integration of TikZ and PGFPlots for high-fidelity vector graphics.
+\RequirePackage{graphicx, color, xcolor, float, caption, subfigure, parskip} % Basic assets
+\RequirePackage{tikz, pgfplots} % Advanced drawing
+\RequirePackage{pdfpages, epstopdf, epsfig} % Legacy and PDF support
+\RequirePackage[export]{adjustbox} % Prevent over-wide images with [max width=\textwidth]
+
+\usetikzlibrary{positioning, patterns, shapes.geometric, arrows, fadings, shadings}
+\pgfplotsset{compat=1.18}
+
+% Global Color Palette
+\definecolor{wsnPrimary}{RGB}{0,115,187} % primary color (DUT Blue)
+\definecolor{wsnGrey}{cmyk}{0.47,0.37,0.37,0.00}
+\colorlet{wsnAux}{wsnGrey!50!white} % auxiliary color
+\colorlet{wsnInter}{wsnPrimary!60!white} % intersperse color
+
+% =============================================================================
+% 4. LISTS, TABULAR DATA & ALGORITHMS
+% =============================================================================
+% Advanced environments for data representation and logical sequencing.
+\RequirePackage{enumerate}   % Custom numbering styles for lists
+\makeatletter
+\@ifclassloaded{beamer}{}{\RequirePackage[inline]{enumitem}}
+\makeatother                 % \begin{enumerate*} for inline lists, conflicts with beamer
+\RequirePackage{booktabs}    % \toprule (top), \midrule (mid), \bottomrule (bottom)
+\RequirePackage{multirow}    % \multirow{n}{width}{content}
+\RequirePackage{makecell}    % \makecell{line1 \\ line2} for multi-line cells
+\RequirePackage{diagbox}     % \diagbox{Lower}{Upper} for diagonal table heads
+\RequirePackage{longtable, supertabular} % Tables spanning multiple pages
+\RequirePackage{algorithm, algorithmic} % Pseudocode environments
+
+% =============================================================================
+% 5. CITATIONS, AUTHORSHIP & FILE HANDLING
+% =============================================================================
+% Management of metadata, contributors, and cross-file integration.
+\makeatletter
+\@ifclassloaded{beamer}{}{\RequirePackage{authblk}}
+\makeatother                 % Multiple authors/affiliations via \affil{...}, conflicts with beamer
+\RequirePackage{bibentry}    % Full citations in text via \bibentry{key}
+\RequirePackage{newclude}    % Enhanced include: \include*{file} avoids page breaks
+\RequirePackage[numbers,sort&compress]{natbib} % Numerical, sorted citations
+
+% =============================================================================
+% 6. PROGRAMMING & HYPERLINKS
+% =============================================================================
+% High-performance code highlighting and document metadata.
+\RequirePackage{minted} % \begin{minted}{language} ... \end{minted}
+\usemintedstyle{xcode}
+
+% Clickable cross-references, conflicts with beamer
+\makeatletter
+\@ifclassloaded{beamer}{}{\RequirePackage[hidelinks]{hyperref}}
+\makeatother
+\hypersetup{colorlinks=true,linkcolor=black}
+
+\RequirePackage{url, xurl}                     % Line-breaking URLs
+\RequirePackage[linewidth=1pt]{mdframed}       % Framed boxes with \begin{mdframed}
+
+% =============================================================================
+% 7. WSNEX HELPER COMMANDS
+% =============================================================================
+% Semantic coloring and utility shortcuts.
+\newcommand{\wsnred}[1]{\textcolor[rgb]{1.0, 0.0, 0.0}{#1}}
+\newcommand{\wsnblue}[1]{\textcolor[rgb]{0.0, 0.0, 1.0}{#1}}
+\newcommand{\wsndut}[1]{\textcolor{wsnPrimary}{#1}}
+\newcommand{\wsndefi}[1]{\wsnblue{\textbf{\textit{#1}}}} % Emphasis for definitions
+\newcommand{\wsnalert}[1]{\textcolor[RGB]{255, 192, 0}{\textbf{#1}}} % MS Office orange style highlight
+
+\endinput
