@@ -1,0 +1,13 @@
+\contentsline {chapter}{摘要}{I}{section*.1}%
+\contentsline {chapter}{Abstract}{II}{section*.2}%
+\contentsline {chapter}{引言}{1}{section*.4}%
+\contentsline {chapter}{\numberline {1\hspace {.3em}}正文格式说明}{2}{chapter.5}%
+\contentsline {section}{\numberline {1.1}论文格式基本要求}{2}{section.6}%
+\contentsline {section}{\numberline {1.2}图表及公式}{2}{section.7}%
+\contentsline {subsection}{\numberline {1.2.1}章节标题格式}{2}{subsection.10}%
+\contentsline {chapter}{结论}{3}{section*.11}%
+\contentsline {chapter}{参考文献}{4}{section*.12}%
+\contentsline {chapter}{\numberline {附录\kern 0ptA\hspace {.3em}}附录内容名称}{5}{appendix.13}%
+\contentsline {chapter}{修改记录}{6}{section*.14}%
+\contentsline {chapter}{致谢}{7}{section*.15}%
+\contentsfinish 

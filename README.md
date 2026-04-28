@@ -1,140 +1,49 @@
-# WsNeX: A Unified LaTeX Library for Academic Excellence
+# WsNeX DUT Undergraduate Thesis Template
 
-[![LaTeX](https://img.shields.io/badge/LaTeX-Project-008080.svg?style=flat&logo=latex&logoColor=white)](https://www.latex-project.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+This repository is a LaTeX template for the undergraduate graduation thesis
+or design report of Dalian University of Technology.
 
-**WsNeX** is a high-performance LaTeX framework designed to bridge the gap between rigorous academic manuscripts and professional technical presentations. Developed for researchers and engineers, it provides a unified visual identity and a robust macro architecture.
+## Files
 
----
-
-## 🎨 Visual Showcase
-
-### Technical Presentations (Beamer)
-![Title Page](./fig/demo_0.jpg)
-![Title Page](./fig/demo_1.jpg)
-![Title Page](./fig/demo_2.jpg)
-![Title Page](./fig/demo_3.jpg)
-![Title Page](./fig/demo_4.jpg)
-
-### Scientific Manuscripts (Article)
-*Clean, Standardized Typography for Journals*
-
----
-
-## 🚀 Key Features
-
-* **Unified Branding**: Consistent use of `wsnPrimary` (DUT Blue) across all document types.
-* **Geometric Beamer UI**: Custom-engineered `frametitle` using TikZ with diagonal joins and path fading.
-* **Dynamic Title Architecture**: Automated calculation of author/institute boxes to ensure perfect geometric alignment regardless of text length.
-* **Semantic Commands**: Intuitive shortcuts for technical writing:
-    * `\wsndefi{...}`: Styled emphasis for definitions.
-    * `\wsnalert{...}`: High-visibility alerts for critical notes.
-    * `\wsndut{...}`: Branding-compliant text color.
-* **Code-First Integration**: Built-in support for `minted` providing high-fidelity syntax highlighting (Xcode style).
-* **Advanced Math Support**: Pre-configured `amsmath`, `bm` (bold math), and `pifont` for complex technical documentation.
-
----
-
-## 🛠 Installation & Requirements
-
-### 1. Prerequisites
-Ensure your TeX distribution is up to date (TeX Live 2023+ recommended).
-* **Engine**: `XeLaTeX` or `LuaLaTeX` (required for system font loading).
-* **System Fonts**: You must keep `arial.ttf` and `msyh.ttc` (Microsoft YaHei) in your working directory.
-* **Python**: Required for the `minted` package (for code highlighting).
-
-### 2. Usage
-Clone the repository and ensure the `.sty` files are in your working directory:
-
-**For Presentations:**
-```latex
-\documentclass[aspectratio=169]{ctexbeamer}
-\usepackage{wsnex-beamer} % Loads wsnex-base automatically
-
-\title{Your Title}
-\author{Your Name}
-\institute{Your Institute}
-
-\begin{document}
-% =============================================================================
-% 1. TITLE PAGE
-% =============================================================================
-{
-    \usebackgroundtemplate{
-        \tikz[overlay, remember picture]\node[opacity=0.6] at (current page.center){
-            \includegraphics[width=\paperwidth]{fig/BG.jpg}
-            };
-        }
-    \maketitle
-}
-
-% =============================================================================
-% 2. MAIN BODY
-% =============================================================================
-% Your frames here
-
-% =============================================================================
-% 3. END COVER
-% =============================================================================
-{
-    \usebackgroundtemplate{
-        \tikz[overlay, remember picture]\node[opacity=0.6] at (current page.center){
-            \includegraphics[width=\paperwidth]{fig/BG.jpg}
-            };
-        }
-    \maketitle
-}
-\end{document}
-```
-
-**For Manuscripts:**
-```latex
-\documentclass[12pt]{article}
-\usepackage{wsnex-base}
-\geometry{left=2.5cm, right=2.5cm, top=2.8cm, bottom=2.5cm}
-
-\title{Your Title}
-\author{Your Name}
-\affil{Your Institute}
-\date{\today}
-
-\begin{document}
-\maketitle
-
-% Your content here
-
-\end{document}
-```
-
----
-
-## 📂 Repository Structure
-```
+```text
 .
-├── wsnex-base.sty      # Core engineering library (Math, Fonts, Colors)
-├── wsnex-beamer.sty    # UI Library for Beamer presentations
-├── presentation.tex    # Template for technical slides
-├── manuscript.tex      # Template for academic papers
-├── fig/                # Image assets (logos, backgrounds)
-├── arial.ttf           # Required Arial font asset
-└── msyh.ttc            # Required Microsoft YaHei font asset
+├── thesis.tex                  # Main thesis entry
+├── wsnex-dut-bachelor.cls      # DUT undergraduate thesis class
+├── wsnex-base.sty              # Reusable WsNeX base macros
+├── chapters/                   # Thesis sections
+├── reference/references.bib    # BibTeX database
+├── latexmkrc                   # XeLaTeX build recipe
+└── build/thesis.pdf            # Generated PDF after compilation
 ```
 
----
+## Build
 
-## 🔧 Technical Notes
-- **Shell Escape**: When using code blocks (via ```minted```), compile your document with the ```-shell-escape``` flag:
-```xelatex -shell-escape presentation.tex.```
+Use the LaTeX Workshop-style command from this directory:
 
-- **Table of Contents**: The Beamer class is configured to automatically show a TOC at the beginning of each section with a custom background template.
+```bash
+latexmk -synctex=1 -interaction=nonstopmode -file-line-error -pdfxe -outdir=build thesis.tex
+```
 
----
+The template is designed for XeLaTeX because it uses Chinese system fonts. On
+macOS it explicitly uses Songti SC, Heiti SC, Times New Roman, Arial, and
+Courier New.
 
-## 🤝 Contributing
+## Writing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Edit the metadata block in `thesis.tex` first:
 
----
+```latex
+\title{大连理工大学本科毕业论文（设计）题目}
+\englishtitle{The Subject of Undergraduate Graduation Project (Thesis) of DUT}
+\college{机械工程学院}
+\major{机械设计制造及其自动化}
+\author{学生姓名}
+\studentid{20221040000}
+\advisor{指导教师}
+\reviewer{评阅教师}
+\completiondate{2026年6月}
+```
 
-## 📄 License
-Distributed under the MIT License. See ```LICENSE``` for more information.
+Then replace the sample content in `chapters/`. The front matter, page numbers,
+headers, chapter styles, captions, appendix numbering, and GB/T 7714 numerical
+references are handled by `wsnex-dut-bachelor.cls`.

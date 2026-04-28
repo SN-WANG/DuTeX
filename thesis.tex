@@ -1,0 +1,47 @@
+% =============================================================================
+% DUT Undergraduate Thesis Template
+% Maintainer: Shengning Wang
+% =============================================================================
+
+\documentclass{wsnex-dut-bachelor}
+
+% =============================================================================
+% 1. COVER METADATA
+% =============================================================================
+\title{大连理工大学本科毕业论文（设计）题目}
+\englishtitle{The Subject of Undergraduate Graduation Project (Thesis) of DUT}
+\college{机械工程学院}
+\major{机械设计制造及其自动化}
+\author{学生姓名}
+\studentid{20221040000}
+\advisor{指导教师}
+\reviewer{评阅教师}
+\completiondate{2026年6月}
+
+% =============================================================================
+% 2. DOCUMENT
+% =============================================================================
+\begin{document}
+
+\makecover
+\makedeclarations
+
+\frontmatter
+\input{chapters/abstract}
+\tableofcontents
+
+\mainmatter
+\input{chapters/introduction}
+\input{chapters/chapter1}
+\input{chapters/conclusion}
+
+\bibliography{reference/references}
+
+\appendix
+\input{chapters/appendix-a}
+
+\backmatter
+\input{chapters/revision-record}
+\input{chapters/acknowledgements}
+
+\end{document}
