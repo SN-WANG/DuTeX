@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.23)  28 APR 2026 15:49
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.3.23)  18 MAY 2026 15:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -386,55 +386,54 @@ Package bm Info: No bold for \OMX/cmex/m/n, using \pmb.
 Package bm Info: No bold for \U/msa/m/n, using \pmb.
 Package bm Info: No bold for \U/msb/m/n, using \pmb.
 LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 149.
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/tools/array.sty
+Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
+\col@sep=\dimen191
+\ar@mcellbox=\box58
+\extrarowheight=\dimen192
+\NC@list=\toks28
+\extratabsurround=\skip66
+\backup@length=\skip67
+\ar@cellbox=\box59
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen191
-\lightrulewidth=\dimen192
-\cmidrulewidth=\dimen193
-\belowrulesep=\dimen194
-\belowbottomsep=\dimen195
-\aboverulesep=\dimen196
-\abovetopsep=\dimen197
-\cmidrulesep=\dimen198
-\cmidrulekern=\dimen199
-\defaultaddspace=\dimen256
+\heavyrulewidth=\dimen193
+\lightrulewidth=\dimen194
+\cmidrulewidth=\dimen195
+\belowrulesep=\dimen196
+\belowbottomsep=\dimen197
+\aboverulesep=\dimen198
+\abovetopsep=\dimen199
+\cmidrulesep=\dimen256
+\cmidrulekern=\dimen257
+\defaultaddspace=\dimen258
 \@cmidla=\count323
 \@cmidlb=\count324
-\@aboverulesep=\dimen257
-\@belowrulesep=\dimen258
+\@aboverulesep=\dimen259
+\@belowrulesep=\dimen260
 \@thisruleclass=\count325
 \@lastruleclass=\count326
-\@thisrulewidth=\dimen259
+\@thisrulewidth=\dimen261
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
-\LTleft=\skip66
-\LTright=\skip67
-\LTpre=\skip68
-\LTpost=\skip69
+\LTleft=\skip68
+\LTright=\skip69
+\LTpre=\skip70
+\LTpost=\skip71
 \LTchunksize=\count327
-\LTcapwidth=\dimen260
-\LT@head=\box58
-\LT@firsthead=\box59
-\LT@foot=\box60
-\LT@lastfoot=\box61
-\LT@gbox=\box62
+\LTcapwidth=\dimen262
+\LT@head=\box60
+\LT@firsthead=\box61
+\LT@foot=\box62
+\LT@lastfoot=\box63
+\LT@gbox=\box64
 \LT@cols=\count328
 \LT@rows=\count329
 \c@LT@tables=\count330
 \c@LT@chunks=\count331
-\LT@p@ftn=\toks28
+\LT@p@ftn=\toks29
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
- (/usr/local/texlive/2026/texmf-dist/tex/latex/tools/array.sty
-Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
-\col@sep=\dimen261
-\ar@mcellbox=\box63
-\extrarowheight=\dimen262
-\NC@list=\toks29
-\extratabsurround=\skip70
-\backup@length=\skip71
-\ar@cellbox=\box64
-)
 \rotheadsize=\dimen263
 \c@nlinenum=\count332
 \TeXr@lab=\toks30
@@ -490,6 +489,9 @@ Package: enumitem 2025/02/06 v3.11 Customized lists
 \enit@inbox=\box65
 \enit@count@id=\count339
 \enitdp@description=\count340
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count341
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@headwidth=\skip75
@@ -509,7 +511,7 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \@temptokenb=\toks34
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count341
+\c@float@type=\count342
 \float@exts=\toks35
 \float@box=\box66
 \@float@everytoks=\toks36
@@ -521,9 +523,9 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
  (/usr/local/texlive/2026/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
 ))
-\Gm@cnth=\count342
-\Gm@cntv=\count343
-\c@Gm@tempcnt=\count344
+\Gm@cnth=\count343
+\Gm@cntv=\count344
+\c@Gm@tempcnt=\count345
 \Gm@bindingoffset=\dimen279
 \Gm@wd@mp=\dimen280
 \Gm@odd@mp=\dimen281
@@ -577,7 +579,7 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip89
 \bibsep=\skip90
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count345
+\c@NAT@ctr=\count346
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
@@ -610,10 +612,7 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
  (/usr/local/texlive/2026/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count346
-) (/usr/local/texlive/2026/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count347
+\c@section@level=\count347
 ) (/usr/local/texlive/2026/texmf-dist/tex/generic/stringenc/stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
@@ -769,7 +768,11 @@ Package fontspec Info:
 
 \DUT@chapterbeforeskip=\skip92
 \DUT@chapterafterskip=\skip93
-\DUT@revisionsignaturerightskip=\skip94
+\DUT@sectionbeforeskip=\skip94
+\DUT@sectionafterskip=\skip95
+\DUT@subsectionbeforeskip=\skip96
+\DUT@subsectionafterskip=\skip97
+\DUT@revisionsignaturerightskip=\skip98
 ) (/Users/wsn/Documents/DuTeX/build/thesis.aux)
 \openout1 = `thesis.aux'.
 
@@ -1011,12 +1014,12 @@ Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: 779ED0E9E3010F783AA14BDDFBD75AED;979.
  ) 
 Here is how much of TeX's memory you used:
- 20443 strings out of 468168
- 439507 string characters out of 5432815
- 842249 words of memory out of 5000000
- 48785 multiletter control sequences out of 15000+600000
- 642655 words of font info for 162 fonts, out of 8000000 for 9000
+ 20517 strings out of 468168
+ 441716 string characters out of 5432815
+ 843005 words of memory out of 5000000
+ 48855 multiletter control sequences out of 15000+600000
+ 643336 words of font info for 167 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 107i,11n,109p,1190b,562s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 107i,11n,109p,1190b,560s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on /Users/wsn/Documents/DuTeX/build/thesis.pdf (13 pages).

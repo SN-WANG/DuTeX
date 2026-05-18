@@ -32,9 +32,11 @@
 % =============================================================================
 % Keep the thesis class compact: load only packages used by ordinary theses.
 \RequirePackage{amsmath,amssymb,amsthm,bm}
+\RequirePackage{array}
 \RequirePackage{booktabs,longtable,makecell,multirow,tabularx}
 \RequirePackage{caption,subcaption}
 \RequirePackage{enumitem}
+\RequirePackage{etoolbox}
 \RequirePackage{fancyhdr}
 \RequirePackage{float}
 \RequirePackage{fontspec}
@@ -169,8 +171,16 @@
 % Numbered chapters are left aligned. Front/back matter headings are centered.
 \newlength{\DUT@chapterbeforeskip}
 \newlength{\DUT@chapterafterskip}
-\setlength{\DUT@chapterbeforeskip}{0pt}
-\setlength{\DUT@chapterafterskip}{11bp}
+\newlength{\DUT@sectionbeforeskip}
+\newlength{\DUT@sectionafterskip}
+\newlength{\DUT@subsectionbeforeskip}
+\newlength{\DUT@subsectionafterskip}
+\setlength{\DUT@chapterbeforeskip}{20bp}
+\setlength{\DUT@chapterafterskip}{31bp}
+\setlength{\DUT@sectionbeforeskip}{7.8bp}
+\setlength{\DUT@sectionafterskip}{18bp}
+\setlength{\DUT@subsectionbeforeskip}{7.8bp}
+\setlength{\DUT@subsectionafterskip}{8bp}
 
 \newcommand{\DUT@headingformat}[1]{%
   \raggedright\heiti\bfseries#1\linespread{1.5}\selectfont
@@ -189,22 +199,22 @@
   },
   section = {
     format = \DUT@headingformat{\zihao{4}},
-    beforeskip = 8bp,
-    afterskip = 8bp,
+    beforeskip = \DUT@sectionbeforeskip,
+    afterskip = \DUT@sectionafterskip,
     afterindent = true,
     fixskip = true
   },
   subsection = {
     format = \DUT@headingformat{\zihao{-4}},
-    beforeskip = 8bp,
-    afterskip = 6bp,
+    beforeskip = \DUT@subsectionbeforeskip,
+    afterskip = \DUT@subsectionafterskip,
     afterindent = true,
     fixskip = true
   },
   subsubsection = {
     format = \DUT@headingformat{\zihao{-4}},
-    beforeskip = 8bp,
-    afterskip = 6bp,
+    beforeskip = \DUT@subsectionbeforeskip,
+    afterskip = \DUT@subsectionafterskip,
     afterindent = true,
     fixskip = true
   }
@@ -401,6 +411,76 @@
 \numberwithin{equation}{chapter}
 \numberwithin{figure}{chapter}
 \numberwithin{table}{chapter}
+
+\newif\ifDUT@table@centercells
+\DUT@table@centercellsfalse
+\newcommand{\DUT@tablefont}{\songti\zihao{5}\selectfont}
+\newcommand{\DUT@table@setup}{%
+  \DUT@table@centercellstrue
+  \DUT@tablefont
+  \renewcommand{\arraystretch}{1.20}%
+  \setlength{\extrarowheight}{0pt}%
+}
+\newcommand{\DUT@table@teardown}{\DUT@table@centercellsfalse}
+
+\let\DUT@array@classz\@classz
+\def\@classz{%
+  \ifDUT@table@centercells
+    \@classx
+    \@tempcnta \count@
+    \prepnext@tok
+    \@addtopreamble{\ifcase \@chnum
+      \hfil
+      \hskip1sp%
+      \d@llarbegin
+      \insert@column
+      \d@llarend
+      \do@row@strut \hfil \or
+      \hfil
+      \hskip1sp%
+      \d@llarbegin
+      \insert@column
+      \d@llarend
+      \do@row@strut \hfil \or
+      \hfil
+      \hskip1sp%
+      \d@llarbegin
+      \insert@column
+      \d@llarend
+      \do@row@strut \hfil \or
+      \setbox\ar@mcellbox\vbox
+      \@startpbox{\@nextchar}\unexpanded{\centering\arraybackslash}%
+      \insert@pcolumn \@endpbox
+      \ar@align@mcell
+      \do@row@strut \or
+      \setbox\ar@mcellbox\vbox
+      \@startpbox{\@nextchar}\unexpanded{\centering\arraybackslash}%
+      \insert@pcolumn \@endpbox
+      \ar@align@mcell
+      \do@row@strut \or
+      \setbox\ar@mcellbox\vbox
+      \@startpbox{\@nextchar}\unexpanded{\centering\arraybackslash}%
+      \insert@pcolumn \@endpbox
+      \ar@align@mcell
+      \do@row@strut
+    \fi}%
+    \prepnext@tok
+  \else
+    \DUT@array@classz
+  \fi
+}
+
+\AtBeginEnvironment{tabular}{\DUT@table@setup}
+\AtEndEnvironment{tabular}{\DUT@table@teardown}
+\AtBeginEnvironment{tabular*}{\DUT@table@setup}
+\AtEndEnvironment{tabular*}{\DUT@table@teardown}
+\AtBeginEnvironment{tabularx}{\DUT@table@setup}
+\AtEndEnvironment{tabularx}{\DUT@table@teardown}
+\AtBeginEnvironment{longtable}{\DUT@table@setup}
+\AtEndEnvironment{longtable}{\DUT@table@teardown}
+\renewcommand{\tabularxcolumn}[1]{>{\centering\arraybackslash}p{#1}}
+\renewcommand{\cellalign}{cc}
+\renewcommand{\theadalign}{cc}
 
 \DeclareCaptionLabelSeparator{DUT@space}{\quad}
 \captionsetup{
